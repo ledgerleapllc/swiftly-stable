@@ -1,0 +1,26 @@
+{
+    "name": "ledgerleapllc/swiftly-stable",
+    "description": "Ledgerleap's stable token platform framework",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Thomas Spangler",
+            "email": "thomas@ledgerleap.com"
+        },
+        {
+            "name": "Micky Chen",
+            "email": "micky@ledgerleap.com",
+        }
+    ],
+    "require": {
+        "paragonie/sodium_compat": "^1.17",
+        "phpmailer/phpmailer": "^6.6",
+        "make-software/casper-php-sdk": "dev-master",
+        "phpunit/phpunit": "^9.5",
+        "spomky-labs/otphp": "^10.0"
+    },
+    "autoload": {},
+    "scripts": {
+        "test": "echo ; echo '[+] Running Unit Tests' ; echo ; ./vendor/bin/phpunit --testdox tests/Unit"
+    }
+}
