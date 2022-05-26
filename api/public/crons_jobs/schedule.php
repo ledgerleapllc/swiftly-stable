@@ -64,7 +64,7 @@ if($selection) {
 
 		$template = str_replace(
 			'[LOGO_URL]', 
-			"https://".getenv('CORS_SITE').'/logo.svg', 
+			"https://".getenv('CORS_SITE').'/logo.png', 
 			$template
 		);
 
