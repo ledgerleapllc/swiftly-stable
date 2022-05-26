@@ -243,3 +243,5 @@ fi
 echo -e "${COLOR_GREEN}[+] Done${COLOR_END}"
 echo 
 echo -e "Please note, you will still need to setup emailer credentials information in your api/.env before the email scheduler will work."
+
+cd ..
