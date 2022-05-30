@@ -35,8 +35,8 @@ class UserResendCode extends Endpoints {
 
 		if($fetched_confirmation_code) {
 			$recipient = $email;
-			$subject = 'Welcome to CasperFyre';
-			$body = 'Welcome to CasperFyre. Your registration code is below:<br><br>';
+			$subject = 'Welcome to Swiftly Stable';
+			$body = 'Welcome to Swiftly Stable. Your registration code is below:<br><br>';
 			$link = $fetched_confirmation_code; 
 
 			$helper->schedule_email(
