@@ -125,7 +125,7 @@ class DB {
 				CREATE TABLE `users` (
 					`guid` varchar(36) NOT NULL,
 					`role` varchar(16) DEFAULT 'user',
-					`account_type` ENUM('user', 'entity') DEFAULT 'user',
+					`account_type` ENUM('individual', 'entity') DEFAULT 'individual',
 					`email` varchar(255) DEFAULT NULL,
 					`verified` int DEFAULT '0',
 					`first_name` varchar(255) DEFAULT NULL,
@@ -139,6 +139,11 @@ class DB {
 					`deny_reason` text,
 					`twofa` int DEFAULT '0',
 					`totp` int DEFAULT '0',
+					`phone` varchar(20) DEFAULT NULL,
+					`address` varchar(255) DEFAULT NULL,
+					`address2` varchar(255) DEFAULT NULL,
+					`country_residence` varchar(100) DEFAULT NULL,
+					`country_citizenship` varchar(100) DEFAULT NULL,
 					PRIMARY KEY (`guid`)
 				) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 			";
@@ -151,6 +156,7 @@ class DB {
 				INSERT INTO `users` VALUES (
 					'5a199618-682d-2006-4c4c-c0cde9e672d5',
 					'admin',
+					'individual',
 					'$created_email',
 					1,
 					'admin',
@@ -163,7 +169,12 @@ class DB {
 					1,
 					NULL,
 					0,
-					0
+					0,
+					'321-111-2222',
+					'123 address line1',
+					'456 address line2',
+					'United States',
+					'United States'
 				)
 			";
 			$this->do_query($query);
@@ -179,8 +190,12 @@ class DB {
 					`entity_name` varchar(255) DEFAULT NULL,
 					`entity_type` varchar(255) DEFAULT NULL,
 					`entity_address` text,
+					`entity_address2` text,
+					`entity_registration_number` varchar(255) DEFAULT NULL,
+					`entity_registration_date` timestamp NULL DEFAULT NULL,
+					`entity_phone` varchar(20) DEFAULT NULL,
+					`entity_contact_title` varchar(32) DEFAULT NULL,
 					`created_at` timestamp NULL DEFAULT NULL,
-					`description` text,
 					PRIMARY KEY (`guid`)
 				) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 			";
