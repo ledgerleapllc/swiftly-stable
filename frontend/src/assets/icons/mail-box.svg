@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="93.302" height="90.085" viewBox="0 0 93.302 90.085">
+<defs><style>.a1{fill:url(#a1);}.b1{fill:#668ef8;}.c1{fill:#fff;}.d1{fill:none;stroke:#668ef8;stroke-width:2px;}.e1{fill:#366af7;}.f1{filter:url(#b1);}</style>
+<linearGradient id="a1" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox"><stop offset="0" stop-color="#c3d3fe"/>
+<stop offset="1" stop-color="#a3bcff"/></linearGradient>
+<filter id="b1" x="3.618" y="0" width="87.371" height="70.498" filterUnits="userSpaceOnUse">
+<feOffset dy="-3" input="SourceAlpha"/><feGaussianBlur stdDeviation="3" result="c"/>
+<feFlood flood-opacity="0.161"/><feComposite operator="in" in2="c"/>
+<feComposite in="SourceGraphic"/></filter></defs>
+<g transform="translate(0.02 0.317)">
+<path class="a1" d="M91.668,98.385H4.954A2.457,2.457,0,0,1,2.5,95.931V38.34a2.433,2.433,0,0,1,.482-1.461A2.477,2.477,0,0,1,4.207,36l.087-.028.078-.046L47.9,10.408a.819.819,0,0,1,.828,0L92.25,35.928l.078.046.087.028a2.477,2.477,0,0,1,1.225.878,2.433,2.433,0,0,1,.482,1.461V95.931A2.457,2.457,0,0,1,91.668,98.385Z" transform="translate(-1.682 -9.478)"/>
+<path class="b1" d="M89.986,95.885a1.638,1.638,0,0,0,1.636-1.636V36.658a1.621,1.621,0,0,0-.321-.973,1.652,1.652,0,0,0-.817-.586l-.173-.055-.157-.092L46.629,9.432,3.1,34.952l-.157.092-.173.055a1.652,1.652,0,0,0-.817.586,1.621,1.621,0,0,0-.321.973V94.249a1.638,1.638,0,0,0,1.636,1.636H89.986m0,1.636H3.272A3.272,3.272,0,0,1,0,94.249V36.658A3.274,3.274,0,0,1,2.276,33.54L45.8,8.021a1.637,1.637,0,0,1,1.655,0L90.981,33.54a3.274,3.274,0,0,1,2.276,3.118V94.249A3.272,3.272,0,0,1,89.986,97.521Z" transform="translate(0 -7.796)"/>
+<g class="f1" transform="matrix(1, 0, 0, 1, -0.02, -0.32)">
+<path class="c1" d="M36.492,54,1.5,33.386V6.245A4.745,4.745,0,0,1,6.245,1.5H66.126a4.745,4.745,0,0,1,4.745,4.745V33.322Z" transform="translate(11.12 10.5)"/></g>
+<line class="d1" x2="88.022" y2="52.355" transform="translate(0.491 36.553)"/>
+<line class="d1" x1="45.811" y2="27.486" transform="translate(46.956 36.88)"/>
+<circle class="e1" cx="1.963" cy="1.963" r="1.963" transform="translate(31.086 20.028)"/>
+<path class="e1" d="M27.284,36.563A6.217,6.217,0,0,1,21.1,31H33.469A6.217,6.217,0,0,1,27.284,36.563Z" transform="translate(19.835 -3.118)"/>
+<circle class="e1" cx="1.963" cy="1.963" r="1.963" transform="translate(59.554 20.028)"/>
+<path class="c1" d="M29.319,35.908a5.033,5.033,0,0,1-3.478-1.417A5.736,5.736,0,0,1,24.124,31h10.39A5.736,5.736,0,0,1,32.8,34.492,5.034,5.034,0,0,1,29.319,35.908Z" transform="translate(17.801 -3.445)"/></g></svg>

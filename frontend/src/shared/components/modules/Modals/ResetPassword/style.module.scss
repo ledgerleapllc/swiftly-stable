@@ -1,0 +1,14 @@
+.resetPasswordForm {
+  .icon,
+  .text {
+    @apply transition duration-150 ease-in-out;
+  }
+  .success {
+    .icon {
+      @apply text-success;
+    }
+    .text {
+      @apply text-success;
+    }
+  }
+}

@@ -1,0 +1,108 @@
+:global .btn {
+  @apply text-white relative capitalize font-semibold text-sm transition-all duration-500 ease-in-out inline-block;
+
+  // ripple box
+  .ripple-box {
+    @apply absolute inset-0 overflow-hidden;
+  }
+  .ripple-element {
+    position: absolute;
+    border-radius: 50%;
+    background-color: rgba($color: white, $alpha: 0.2);
+    animation: ripple 1s;
+    height: 0;
+    width: 0;
+    transition: all 225ms cubic-bezier(0, 0, 0.2, 1);
+  }
+
+  // loading state
+  .loading {
+    @apply absolute flex left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2;
+    .lds-ripple div {
+      border-color: currentColor;
+    }
+  }
+
+  // disable state
+  &:disabled {
+    @apply relative cursor-not-allowed opacity-50;
+    &:hover {
+      @apply opacity-50 #{!important};
+    }
+  }
+
+  // Color: primary
+  &.btn-primary {
+    &-contained {
+      @apply bg-primary text-white;
+      &:hover {
+        @apply opacity-90;
+      }
+    }
+
+    &-outline {
+      @apply text-primary border border-primary bg-white;
+    }
+
+    &-text {
+      @apply text-primary p-0  min-w-0 font-normal #{!important};
+    }
+  }
+
+  // Color: basic
+  &.btn-basic {
+    @apply text-white;
+    &-contained {
+      @apply bg-primary text-black;
+      &:hover {
+        @apply opacity-90;
+      }
+    }
+
+    &-outline {
+      @apply border border-gray1;
+    }
+  }
+
+  &.btn-danger {
+    @apply text-danger;
+
+    &-contained {
+      @apply bg-danger text-white;
+    }
+
+    &-outline {
+      @apply text-danger border border-danger;
+    }
+  }
+
+  &.btn-success {
+    @apply text-success;
+
+    &-contained {
+      @apply bg-success text-white;
+    }
+
+    &-outline {
+      @apply text-success border border-success;
+    }
+  }
+
+  // Size (default: md)
+  &.btn-md {
+    @apply py-3 px-5;
+    min-height: 1.75rem;
+    min-width: 6.75rem;
+  }
+
+  &.btn-sm {
+    @apply text-xs font-normal py-1;
+    // min-height: 1.5rem;
+    min-width: 5.625rem;
+  }
+  &.btn-xs {
+    @apply font-normal text-2.5;
+    min-height: 1.2rem;
+    min-width: 5.25rem;
+  }
+}

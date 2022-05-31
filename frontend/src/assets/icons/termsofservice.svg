@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="53" viewBox="0 0 40 53">
+  <defs>
+    <style>._a{fill:#fff;stroke-width:2.5px;}._a,.b,.c{stroke:#668ef8;}.b,.c,.e{fill:none;}.b,.c{stroke-linecap:round;}.b{stroke-width:2px;}.d{stroke:none;}</style>
+  </defs>
+  <g class="_a">
+    <rect class="d" width="40" height="53" rx="2" />
+    <rect class="e" x="1.25" y="1.25" width="37.5" height="50.5" rx="0.75" />
+  </g>
+  <line class="b" x2="24.949" transform="translate(7.25 9.363)" />
+  <line class="b" x2="24.949" transform="translate(7.25 18.18)" />
+  <line class="b" x2="24.949" transform="translate(7.25 26.992)" />
+  <line class="c" x2="17.433" transform="translate(14.766 41.215)" />
+  <path class="c" d="M2.734,2.715" transform="translate(7.766 37.5)" />
+  <g transform="translate(-9 7)">
+    <line class="c" y1="3.715" x2="3.734" transform="translate(15.766 30.5)" />
+    <line class="c" x2="3.734" y2="3.715" transform="translate(15.766 30.5)" />
+  </g>
+</svg>

@@ -1,0 +1,38 @@
+.inputText,
+input {
+  @apply text-sm bg-gray1 py-3 px-5 w-full text-black1 outline-none border border-gray2 transition-all duration-200 ease-in-out;
+
+  &::placeholder {
+    @apply text-black1;
+    opacity: 0.21;
+  }
+
+  &:focus {
+    // @apply border-primary;
+  }
+}
+.inputError {
+  @apply border-danger;
+}
+
+.showPassword {
+  @apply absolute right-5 cursor-pointer top-1/2 transform -translate-y-1/2 text-2xl text-gray2;
+}
+
+.errorInput {
+  // @apply border-danger;
+
+  &:focus {
+    // @apply border-danger;
+  }
+}
+
+.error {
+  // @apply text-danger;
+}
+
+textarea {
+  width: auto;
+  font-weight: inherit;
+  resize: none;
+}

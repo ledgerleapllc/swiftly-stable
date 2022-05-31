@@ -1,0 +1,26 @@
+.btnSwitch {
+  @apply flex relative items-center cursor-pointer;
+}
+
+.toggle {
+  @apply w-11 h-6 rounded-full border bg-gray1 border-gray1;
+
+  &:after {
+    @apply bg-white border-gray1 rounded-full border w-5 h-5 absolute;
+    content: '';
+    left: 0.125rem;
+    top: 0.125rem;
+    transition-duration: 0.15s;
+    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter,
+      backdrop-filter, -webkit-backdrop-filter;
+  }
+
+  &.active {
+    @apply bg-primary border-primary;
+
+    &:after {
+      border-color: #fff;
+      transform: translateX(100%);
+    }
+  }
+}

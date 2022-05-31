@@ -1,0 +1,31 @@
+.logo {
+  width: 8.75rem;
+}
+
+.userDropList {
+  &:before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: 6px;
+    top: -11px;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid #e0dcdc;
+  }
+
+  &:after {
+    content: '';
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    left: 6px;
+    top: -10px;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid #ffffff;
+  }
+}

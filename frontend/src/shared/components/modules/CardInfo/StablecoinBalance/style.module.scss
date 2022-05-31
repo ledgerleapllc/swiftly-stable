@@ -1,0 +1,7 @@
+.blockItem {
+  @apply border-r w-full text-center px-28 py-12 flex flex-col gap-y-2 justify-center items-center whitespace-nowrap;
+
+  &:last-child {
+    @apply border-none;
+  }
+}

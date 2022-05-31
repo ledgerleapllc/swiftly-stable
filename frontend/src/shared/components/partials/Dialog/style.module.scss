@@ -1,0 +1,20 @@
+.dialogWrapper {
+  @apply fixed inset-0;
+}
+.dialogHeader {
+  @apply relative;
+}
+.flexCenter {
+  @apply flex justify-center items-center;
+}
+.dialogBackdrop {
+  @apply fixed inset-0;
+  background: rgba(21, 21, 21, 0.5);
+}
+.dialogContainer {
+  @apply fixed z-50;
+  max-width: 42rem;
+  width: 100%;
+  min-height: 13rem;
+  background: white;
+}

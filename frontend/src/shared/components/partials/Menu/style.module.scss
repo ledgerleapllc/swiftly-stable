@@ -1,0 +1,25 @@
+.menu {
+  @apply relative flex items-center;
+  z-index: 2;
+}
+
+.menuBackdrop {
+  @apply fixed inset-0;
+  z-index: 1;
+  background: transparent;
+}
+
+.menuList {
+  @apply transition-all duration-100 ease-in-out absolute -bottom-2 transform translate-y-full left-0 bg-white text-xs font-normal rounded-sm drop-shadow-xl border pl-3 mt-2;
+  opacity: 1;
+  visibility: visible;
+}
+.menuItem {
+  @apply flex items-center z-50 transition-all duration-100 ease-in-out h-8 cursor-pointer text-[13px];
+  min-width: 6.75rem;
+}
+
+.menuHidden {
+  opacity: 0;
+  visibility: hidden;
+}
