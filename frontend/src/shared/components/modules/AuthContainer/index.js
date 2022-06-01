@@ -13,8 +13,8 @@ export const AuthContainer = ({
   return (
     <div className={classNames('h-full w-full flex flex-col items-center justify-center', className)}>
       <Card className={classNames('w-5/6 px-12 pb-12 pt-6', maxWidth, maxHeight)}>
-        <Logo className='w-1/2 mx-auto' />
-        <div className='pt-6 h-full'>{children}</div>
+        <Logo className='w-1/3 mx-auto' />
+        <div className='pt-6 min-h-0 flex-1'>{children}</div>
       </Card>
       {showInstruction && (
         <ul className='flex space-x-6 pt-5'>

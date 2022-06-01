@@ -4,6 +4,7 @@ import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 const LoginRoutes = lazy(() => import('./login'));
 const EntitySignUpRoutes = lazy(() => import('./signup/entity'));
 const IndividualSignUpRoutes = lazy(() => import('./signup/individual'));
+const SignUpRoutes = lazy(() => import('./signup'));
 const ForgotPasswordRoutes = lazy(() => import('./forgot-password'));
 const ResetPasswordRoutes = lazy(() => import('./reset-password'));
 const VerifyCodeRoutes = lazy(() => import('./verify-code'));
@@ -18,6 +19,7 @@ const AuthRoutes = () => {
     <Suspense fallback={null}>
       <Switch>
         <Route path={`${path}/login`} component={LoginRoutes} exact />
+        <Route path={`${path}/signup`} component={SignUpRoutes} exact />
         <Route path={`${path}/signup/entity`} component={EntitySignUpRoutes} exact />
         <Route path={`${path}/signup/individual`} component={IndividualSignUpRoutes} exact />
         <Route path={`${path}/forgot-password`} component={ForgotPasswordRoutes} exact />

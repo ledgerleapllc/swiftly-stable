@@ -166,7 +166,7 @@ const Login = () => {
         {step === 1 && (
           <p className='ml-auto'>
             Don’t have an account?{' '}
-            <Link className='text-primary' to='/auth/signup/individual'>
+            <Link className='text-primary' to='/auth/signup'>
               Sign Up
             </Link>
           </p>
