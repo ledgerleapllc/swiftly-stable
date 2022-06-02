@@ -185,7 +185,7 @@ class DB {
 
 		if(!in_array('entities', $all_tables)) {
 			$query = "
-				CREATE TABLE `users` (
+				CREATE TABLE `entities` (
 					`guid` varchar(36) NOT NULL,
 					`entity_name` varchar(255) DEFAULT NULL,
 					`entity_type` varchar(255) DEFAULT NULL,
