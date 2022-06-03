@@ -9,10 +9,7 @@ include_once('../../core.php');
  *
  */
 class UserLogin extends Endpoints {
-	function __construct(
-		$email = '',
-		$password = ''
-	) {
+	function __construct($email = '', $password = '') {
 		global $db, $helper;
 
 		require_method('POST');
@@ -20,7 +17,7 @@ class UserLogin extends Endpoints {
 		$email = parent::$params['email'] ?? null;
 		$password = parent::$params['password'] ?? null;
 
-		if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+		if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 			_exit(
 				'error',
 				'Invalid email address',
@@ -53,8 +50,8 @@ class UserLogin extends Endpoints {
 		$password_hash = hash('sha256', $password);
 		$created_at = $helper->get_datetime();
 		$expires_at = $helper->get_datetime(86400); // one day from now
-
-		if(!hash_equals($fetched_password_hash, $password_hash)) {
+		
+		if (!hash_equals($fetched_password_hash, $password_hash)) {
 			_exit(
 				'error',
 				'Invalid email or password',
@@ -92,7 +89,7 @@ class UserLogin extends Endpoints {
 
 			// email mfa type
 			$code = $helper->generate_hash(6);
-
+			
 			$helper->schedule_email(
 				'twofa',
 				$email,

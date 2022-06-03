@@ -10,16 +10,13 @@ class Endpoints {
 	function __construct() {
 		$method = get_method();
 
-		if($method == 'GET') {
+		if ($method == 'GET') {
 			foreach($_REQUEST as $key => $val) {
 				self::$params[$key] = _request($key);
 			}
 		}
 
-		if(
-			$method == 'POST' ||
-			$method == 'PUT'
-		) {
+		if ($method == 'POST' || $method == 'PUT') {
 			self::$params = get_params();
 		}
 	}

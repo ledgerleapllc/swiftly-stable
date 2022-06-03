@@ -12,14 +12,11 @@ class DB {
 			DB_PASS,
 			DB_NAME
 		);
-
-		if($this->connect->connect_error)
-			$this->connect = null;
+		if ($this->connect->connect_error) $this->connect = null;
 	}
 
 	function __destruct() {
-		if($this->connect)
-			$this->connect->close();
+		if ($this->connect) $this->connect->close();
 	}
 
 	/**
@@ -52,10 +49,7 @@ class DB {
 	 */
 	public function do_query($query) {
 		$flag = false;
-
-		if($this->connect)
-			$flag = $this->connect->query($query);
-
+		if ($this->connect) $flag = $this->connect->query($query);
 		return $flag;
 	}
 
@@ -69,13 +63,13 @@ class DB {
 		$tables = $this->do_select($query);
 		$all_tables = array();
 
-		if($tables) {
+		if ($tables) {
 			foreach ($tables as $table) {
 				$all_tables[] = $table['Tables_in_'.DB_NAME];
 			}
 		}
 
-		if(!in_array('schedule', $all_tables)) {
+		if (!in_array('schedule', $all_tables)) {
 			$query = "
 				CREATE TABLE `schedule` (
 					`id` int NOT NULL AUTO_INCREMENT,
@@ -88,7 +82,7 @@ class DB {
 					`sent_at` timestamp NULL DEFAULT NULL,
 					`complete` int DEFAULT '0',
 					PRIMARY KEY (`id`)
-				) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+				) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 			";
 			$this->do_query($query);
 			elog('DB: Created schedule table');
@@ -103,18 +97,18 @@ class DB {
 					`created_at` timestamp NULL DEFAULT NULL,
 					`expires_at` timestamp NULL DEFAULT NULL,
 					PRIMARY KEY (`id`)
-				) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+				) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 			";
 			$this->do_query($query);
 			elog('DB: Created sessions table');
 		}
 
-		if(!in_array('settings', $all_tables)) {
+		if (!in_array('settings', $all_tables)) {
 			$query = "
 				CREATE TABLE `settings` (
 					`name` varchar(64) DEFAULT NULL,
 					`value` text
-				) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+				) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 			";
 			$this->do_query($query);
 			elog('DB: Created settings table');
@@ -145,7 +139,7 @@ class DB {
 					`country_residence` varchar(100) DEFAULT NULL,
 					`country_citizenship` varchar(100) DEFAULT NULL,
 					PRIMARY KEY (`guid`)
-				) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+				) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 			";
 			$this->do_query($query);
 			elog('DB: Created user table');
@@ -197,7 +191,7 @@ class DB {
 					`entity_contact_title` varchar(32) DEFAULT NULL,
 					`created_at` timestamp NULL DEFAULT NULL,
 					PRIMARY KEY (`guid`)
-				) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+				) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 			";
 			$this->do_query($query);
 			elog('DB: Created entities table');
@@ -216,7 +210,7 @@ class DB {
 					`balance` int DEFAULT '0',
 					`last_balance_check` timestamp NULL DEFAULT NULL,
 					PRIMARY KEY (`id`)
-				) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+				) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 			";
 			$this->do_query($query);
 			elog('DB: Created wallets table');
@@ -230,7 +224,7 @@ class DB {
 					`created_at` timestamp NULL DEFAULT NULL,
 					`code` varchar(12) NOT NULL,
 					PRIMARY KEY (`id`)
-				) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+				) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 			";
 			$this->do_query($query);
 			elog('DB: Created twofa table');
@@ -241,7 +235,7 @@ class DB {
 				CREATE TABLE `mfa_allowance` (
 					`guid` varchar(36) NOT NULL,
 					`expires_at` timestamp NULL DEFAULT NULL
-				) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+				) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 			";
 			$this->do_query($query);
 			elog('DB: Created mfa_allowance table');
@@ -254,7 +248,7 @@ class DB {
 					`uri` varchar(64) DEFAULT NULL,
 					`hit` float DEFAULT NULL,
 					`last_request` int DEFAULT '0'
-				) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+				) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 			";
 			$this->do_query($query);
 			elog('DB: Created throttle table');
@@ -265,7 +259,7 @@ class DB {
 				CREATE TABLE `password_resets` (
 					`guid` varchar(36) NOT NULL,
 					`code` varchar(12) NOT NULL
-				) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+				) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 			";
 			$this->do_query($query);
 			elog('DB: Created password_resets table');
@@ -280,31 +274,31 @@ class DB {
 					`success` int DEFAULT '0',
 					`dead` int DEFAULT '0',
 					`created_at` timestamp NULL DEFAULT NULL
-				) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+				) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 			";
 			$this->do_query($query);
 			elog('DB: Created email_changes table');
 		}
-
-		if(!in_array('totp', $all_tables)) {
+		
+		if (!in_array('totp', $all_tables)) {
 			$query = "
 				CREATE TABLE `totp` (
 					`guid` varchar(36) NOT NULL,
 					`secret` text,
 					`created_at` timestamp NULL DEFAULT NULL,
 					`active` int DEFAULT '1'
-				) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+				) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 			";
 			$this->do_query($query);
 			elog('DB: Created totp table');
 		}
 
-		if(!in_array('totp_logins', $all_tables)) {
+		if (!in_array('totp_logins', $all_tables)) {
 			$query = "
 				CREATE TABLE `totp_logins` (
 					`guid` varchar(36) NOT NULL,
 					`expires_at` timestamp NULL DEFAULT NULL
-				) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+				) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 			";
 			$this->do_query($query);
 			elog('DB: Created totp_logins table');

@@ -7,8 +7,7 @@ session_start();
 /**
  * Load config
  */
-
-if(!file_exists(__DIR__.'/.env')) {
+if (!file_exists(__DIR__ . '/.env')) {
 	header('Content-type:application/json;charset=utf-8');
 	http_response_code(500);
 	exit(json_encode(array(
@@ -18,7 +17,7 @@ if(!file_exists(__DIR__.'/.env')) {
 }
 
 include_once('classes/dotenv.php');
-$dotenv = new Dotenv(__DIR__.'/.env');
+$dotenv = new Dotenv(__DIR__ . '/.env');
 $dotenv->load();
 
 define('BASE_DIR', __DIR__);
@@ -35,8 +34,8 @@ define('CRON_TOKEN', getenv('CRON_TOKEN'));
 define('DEV_MODE', (bool)(getenv('DEV_MODE')));
 define('DB_CONN', (getenv('DB_CONN')));
 
-if(filter_var(getenv('NODE_IP'), FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
-	define('NODE_IP', 'http://'.getenv('NODE_IP').':7777');
+if (filter_var(getenv('NODE_IP'), FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+	define('NODE_IP', 'http://' . getenv('NODE_IP').':7777');
 } else {
 	define('NODE_IP', 'http://127.0.0.1:7777');
 }
@@ -133,7 +132,6 @@ if (!function_exists('http_response_code')) {
 					exit('Unknown http status code "' . htmlentities($code) . '"');
 				break;
 			}
-
 			$protocol = (isset($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.0');
 			header($protocol . ' ' . $code . ' ' . $text);
 			$GLOBALS['http_response_code'] = $code;
@@ -153,26 +151,21 @@ if (!function_exists('http_response_code')) {
  * @param  string $exception
  *
  */
-function _exit(
-	$status, 
-	$detail, 
-	$exit_code = 200,
-	$exception = ''
-) {
-	if($exit_code != 200) {
+function _exit($status, $detail, $exit_code = 200, $exception = '') {
+	if ($exit_code != 200) {
 		elog(
-			strtoupper($_SERVER['REQUEST_METHOD'] ?? '').' '.
+			strtoupper($_SERVER['REQUEST_METHOD'] ?? '') . ' ' . 
 			($_SERVER['REQUEST_URI'] ?? '/').' '.
-			(string)$exit_code.' '.
-			$status.
-			($exception ? ' - ' : '').$exception
+			(string) $exit_code . ' ' . 
+			$status .
+			($exception ? ' - ' : '') . $exception
 		);
 	}
 
 	header('Content-type:application/json;charset=utf-8');
 	http_response_code($exit_code);
 
-	if($exit_code == 401) {
+	if ($exit_code == 401) {
 		header('WWW-Authenticate: Bearer token;error="invalid_or_expired_token"');
 	}
 
@@ -188,26 +181,21 @@ function _exit(
  * @return string
  */
 function get_method() {
-	if(isset($_SERVER['REQUEST_METHOD']))
-		return strtoupper($_SERVER['REQUEST_METHOD']);
+	if(isset($_SERVER['REQUEST_METHOD'])) return strtoupper($_SERVER['REQUEST_METHOD']);
 	return 'GET';
 }
 
 /**
  * Require http method
  *
- * @param  string|array $m  accepted method/methods
+ * @param  string|array $m accepted method/methods
  * @return bool
  */
 function require_method($m) {
 	$method = get_method();
 
-	if($method == 'OPTIONS') {
-		_exit(
-			'success',
-			'Success',
-			200
-		);
+	if ($method == 'OPTIONS') {
+		_exit('success', 'Success', 200);
 	}
 
 	if(gettype($m) == 'array') {
@@ -240,7 +228,7 @@ function require_method($m) {
  * @return string
  */
 function filter($string) {
-	if(gettype($string) == 'array')
+	if (gettype($string) == 'array')
 		return $string;
 
 	$string = addslashes(trim($string));
@@ -270,10 +258,7 @@ function filter_array($data = array()) {
 function get_params() {
 	$jsonString = file_get_contents('php://input');
 	$json = json_decode($jsonString, true);
-
-	if(!$json || count($json) == 0)
-		return null;
-
+	if(!$json || count($json) == 0) return null;
 	return filter_array($json);
 }
 
@@ -310,10 +295,7 @@ function authenticate_session($required_clearance = 1) {
 		);
 	}
 
-	if(
-		!ctype_xdigit($auth_bearer) ||
-		strlen($auth_bearer) != 256
-	) {
+	if (!ctype_xdigit($auth_bearer) || strlen($auth_bearer) != 256) {
 		_exit(
 			'error', 
 			'Invalid bearer token', 
@@ -371,24 +353,21 @@ function authenticate_session($required_clearance = 1) {
 		default: $clearance = 0; break;
 	}
 
-	if($clearance < $required_clearance) {
+	if ($clearance < $required_clearance) {
 		_exit(
-			'error', 
-			'Unauthorized', 
+			'error',
+			'Unauthorized',
 			403,
 			'Failed clearance check'
 		);
 	}
 
 	/* if session belongs to a role with low clearance */
-	if($clearance < 2) {
+	if ($clearance < 2) {
 		$request_uri = $_SERVER['REQUEST_URI'] ?? '';
 
-		if(
-			(
-				$admin_approved == 0 ||
-				$verified == 0
-			) &&
+		if (
+			($admin_approved == 0 || $verified == 0) &&
 			$request_uri != '/user/confirm-registration' &&
 			$request_uri != '/user/resend-code' &&
 			$request_uri != '/user/me' &&
@@ -404,7 +383,7 @@ function authenticate_session($required_clearance = 1) {
 	}
 
 	/* fail for banned sub-admin role */
-	if($clearance == 2 && $admin_approved == 0) {
+	if ($clearance == 2 && $admin_approved == 0) {
 		_exit(
 			'error', 
 			'Unauthorized', 
@@ -436,10 +415,7 @@ function authenticate_cron() {
 	$auth_token_t = $auth_token[0];
 	$auth_token = filter($auth_token[1] ?? '');
 
-	if(
-		$auth_token_t != 'Token' &&
-		$auth_token_t != 'token'
-	) {
+	if ($auth_token_t != 'Token' && $auth_token_t != 'token') {
 		_exit(
 			'error', 
 			'Unauthorized', 
@@ -447,7 +423,7 @@ function authenticate_cron() {
 		);
 	}
 
-	if(!hash_equals($auth_token, CRON_TOKEN)) {
+	if (!hash_equals($auth_token, CRON_TOKEN)) {
 		_exit(
 			'error', 
 			'Unauthorized', 
@@ -466,27 +442,24 @@ function authenticate_cron() {
  * @return string
  */
 function _request($key, $strict = 0) {
-	if(isset($_REQUEST[$key])) {
-		if($strict == 1) {
+	if (isset($_REQUEST[$key])) {
+		if ($strict == 1) {
 			$data = $_REQUEST[$key];
 			$output = '';
 			$length = strlen($data);
 
-			for($i = 0; $i < $length; $i++) {
-
+			for ($i = 0; $i < $length; $i++) {
 				if(preg_match("/['A-Za-z0-9.,-@+]+/", $data[$i])) {
 					$output .= $data[$i];
 				}
 			}
 			return filter($output);
-
 		} elseif($strict == 2) {
 			$data = $_REQUEST[$key];
 			$output = '';
 			$length = strlen($data);
 
-			for($i = 0; $i < $length; $i++) {
-
+			for ($i = 0; $i < $length; $i++) {
 				if(preg_match("/[A-Za-z0-9]+/", $data[$i])) {
 					$output .= $data[$i];
 				}
@@ -502,8 +475,6 @@ function _request($key, $strict = 0) {
  * Request origin protection
  */
 function cors_protect() {
-	// return true;
-
 	if(!isset($_SERVER['HTTP_REFERER'])) {
 		header("Location: /");
 		exit('Error - Browser referrer-policy. Please refresh or <a href="/">Return Home</a>');
@@ -528,16 +499,13 @@ function cors_protect() {
  * CSRF protection
  */
 function csrf_protect() {
-	// return true;
-	if(!isset($_POST['token']) && !isset($_GET['token'])) {
+	if (!isset($_POST['token']) && !isset($_GET['token'])) {
 		header("Location: /");
 		exit('Error - Missing CSRF_TOKEN. <a href="/">Return home</a>');
 	}
-
-	if(isset($_REQUEST['token_type']) && $_REQUEST['token_type'] == 'immortal')
+	if (isset($_REQUEST['token_type']) && $_REQUEST['token_type'] == 'immortal')
 		$_SESSION['token'] = $_REQUEST['token'];
-
-	if(!hash_equals($_SESSION['token'], $_REQUEST['token'])) {
+	if (!hash_equals($_SESSION['token'], $_REQUEST['token'])) {
 		header("Location: /");
 		exit('Error - Missing CSRF_TOKEN. <a href="/">Return home</a>');
 	}
@@ -550,8 +518,5 @@ function generateCSRFToken() {
 	return $_SESSION['token'];
 }
 
-
 define('CSRF_TOKEN', generateCSRFToken());
-
-
 ?>
