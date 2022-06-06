@@ -88,6 +88,7 @@ class UserRegister extends Endpoints {
 		/* For live tests */
 		$phpunittesttoken = parent::$params['phpunittesttoken'] ?? '';
 
+		/* Pre-check string formats and lengths */
 		if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 			_exit('error', 'Invalid email address', 400, 'Invalid email address');
 		}
@@ -154,6 +155,108 @@ class UserRegister extends Endpoints {
 			);
 		}
 
+		if (strlen($city) > 64) {
+			_exit(
+				'error',
+				'City is too long. Limit 64 characters',
+				400,
+				'City is too long. Limit 64 characters'
+			);
+		}
+
+		if (strlen($state) > 16) {
+			_exit(
+				'error',
+				'State/province is too long. Limit 16 characters',
+				400,
+				'State/province is too long. Limit 16 characters'
+			);
+		}
+
+		if (strlen($zip) > 16) {
+			_exit(
+				'error',
+				'Zip/postal code is too long. Limit 16 characters',
+				400,
+				'Zip/postal code is too long. Limit 16 characters'
+			);
+		}
+
+		if (
+			strlen($country_residence) > 100 ||
+			strlen($country_citizenship) > 100
+		) {
+			_exit(
+				'error',
+				'Country is too long. Limit 100 characters',
+				400,
+				'Country is too long. Limit 100 characters'
+			);
+		}
+
+		if (strlen($entity_name) > 255) {
+			_exit(
+				'error',
+				'Entity name is too long. Limit 255 characters',
+				400,
+				'Entity name is too long. Limit 255 characters'
+			);
+		}
+
+		if (strlen($entity_city) > 64) {
+			_exit(
+				'error',
+				'Entity city is too long. Limit 64 characters',
+				400,
+				'Entity city is too long. Limit 64 characters'
+			);
+		}
+
+		if (strlen($entity_state) > 16) {
+			_exit(
+				'error',
+				'Entity state/province is too long. Limit 16 characters',
+				400,
+				'Entity state/province is too long. Limit 16 characters'
+			);
+		}
+
+		if (strlen($entity_zip) > 16) {
+			_exit(
+				'error',
+				'Entity zip/postal code is too long. Limit 16 characters',
+				400,
+				'Entity zip/postal code is too long. Limit 16 characters'
+			);
+		}
+
+		if (strlen($entity_registration_number) > 255) {
+			_exit(
+				'error',
+				'Entity registration number is too long. Limit 255 characters',
+				400,
+				'Entity registration number is too long. Limit 255 characters'
+			);
+		}
+
+		if (strlen($entity_phone) > 20) {
+			_exit(
+				'error',
+				'Entity phone number is too long. Limit 20 characters',
+				400,
+				'Entity phone number is too long. Limit 20 characters'
+			);
+		}
+
+		if (strlen($entity_contact_title) > 32) {
+			_exit(
+				'error',
+				'Entity contact title is too long. Limit 32 characters',
+				400,
+				'Entity contact title is too long. Limit 32 characters'
+			);
+		}
+
 		/* check pre-existing email */
 		$query = "SELECT guid FROM users WHERE email = '$email'";
 		$check = $db->do_select($query);
@@ -197,6 +300,9 @@ class UserRegister extends Endpoints {
 				phone,
 				address,
 				address2,
+				city,
+				state,
+				zip,
 				country_residence,
 				country_citizenship
 			) VALUES (
@@ -214,6 +320,9 @@ class UserRegister extends Endpoints {
 				'$phone',
 				'$address',
 				'$address2',
+				'$city',
+				'$state',
+				'$zip',
 				'$country_residence',
 				'$country_citizenship'
 			)
