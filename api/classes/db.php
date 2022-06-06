@@ -136,6 +136,9 @@ class DB {
 					`phone` varchar(20) DEFAULT NULL,
 					`address` varchar(255) DEFAULT NULL,
 					`address2` varchar(255) DEFAULT NULL,
+					`city` varchar(64) DEFAULT NULL,
+					`state` varchar(16) DEFAULT NULL,
+					`zip` varchar(16) DEFAULT NULL,
 					`country_residence` varchar(100) DEFAULT NULL,
 					`country_citizenship` varchar(100) DEFAULT NULL,
 					PRIMARY KEY (`guid`)
@@ -167,6 +170,9 @@ class DB {
 					'321-111-2222',
 					'123 address line1',
 					'456 address line2',
+					'metro',
+					'FL',
+					'33333',
 					'United States',
 					'United States'
 				)
@@ -185,6 +191,9 @@ class DB {
 					`entity_type` varchar(255) DEFAULT NULL,
 					`entity_address` text,
 					`entity_address2` text,
+					`entity_city` varchar(64) DEFAULT NULL,
+					`entity_state` varchar(16) DEFAULT NULL,
+					`entity_zip` varchar(16) DEFAULT NULL,
 					`entity_registration_number` varchar(255) DEFAULT NULL,
 					`entity_registration_date` timestamp NULL DEFAULT NULL,
 					`entity_phone` varchar(20) DEFAULT NULL,
