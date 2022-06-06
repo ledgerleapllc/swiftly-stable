@@ -6,10 +6,10 @@
  */
 class Endpoints {
 	public static $params;
-
+	
 	function __construct() {
 		$method = get_method();
-
+		
 		if ($method == 'GET') {
 			foreach($_REQUEST as $key => $val) {
 				self::$params[$key] = _request($key);

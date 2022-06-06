@@ -11,7 +11,7 @@ class Totp {
 	function __destruct() {
 		//
 	}
-
+	
 	/**
 	 *
 	 * Create a TOTP key and save by user guid
@@ -34,8 +34,8 @@ class Totp {
 		";
 		$email = $db->do_select($query);
 		$email = $email[0]['email'] ?? null;
-
-		if(!$email && $guid != '00000000-0000-0000-4c4c-000000000000') {
+		
+		if (!$email && $guid != '00000000-0000-0000-4c4c-000000000000') {
 			return false;
 		}
 
@@ -51,7 +51,7 @@ class Totp {
 
 		$enc_secret = $helper->aes_encrypt($totp_secret);
 		$created_at = $helper->get_datetime();
-
+		
 		/* deactivate old keys */
 		$query = "
 			UPDATE totp
@@ -74,7 +74,7 @@ class Totp {
 
 		$created = $db->do_query($query);
 		$provisioning_uri = self::generate_provisioning_uri($guid);
-
+		
 		return $provisioning_uri;
 	}
 
@@ -91,7 +91,7 @@ class Totp {
 	 *
 	 */
 	public static function check_code(
-		$guid, 
+		$guid,
 		$code
 	) {
 		global $helper, $db;
@@ -106,7 +106,7 @@ class Totp {
 		$enc_secret = $db->do_select($query);
 		$enc_secret = $enc_secret[0]['secret'] ?? null;
 
-		if(!$enc_secret) {
+		if (!$enc_secret) {
 			return false;
 		}
 
@@ -117,13 +117,12 @@ class Totp {
 				(string)$code,
 				(string)$check_code
 			);
-
 			return $valid;
 		} catch (Exception $e) {
 			return false;
 		}
 	}
-
+	
 	/**
 	 *
 	 * Generate a provisioning uri for exporting to a QR code
@@ -145,7 +144,7 @@ class Totp {
 		$email = $db->do_select($query);
 		$email = $email[0]['email'] ?? null;
 
-		if(!$email && $guid != '00000000-0000-0000-4c4c-000000000000') {
+		if (!$email && $guid != '00000000-0000-0000-4c4c-000000000000') {
 			return '';
 		}
 
@@ -159,7 +158,7 @@ class Totp {
 		$enc_secret = $db->do_select($query);
 		$enc_secret = $enc_secret[0]['secret'] ?? null;
 
-		if(!$enc_secret) {
+		if (!$enc_secret) {
 			return '';
 		}
 
@@ -182,7 +181,7 @@ class Totp {
 		$guid
 	) {
 		global $helper, $db;
-
+		
 		$query = "
 			SELECT secret
 			FROM totp
@@ -192,11 +191,11 @@ class Totp {
 		";
 		$enc_secret = $db->do_select($query);
 		$enc_secret = $enc_secret[0]['secret'] ?? null;
-
-		if(!$enc_secret) {
+		
+		if (!$enc_secret) {
 			return null;
 		}
-
+		
 		try {
 			$totp_instance = OTPHP\TOTP::create($helper->aes_decrypt($enc_secret));
 			$code = $totp_instance->now();

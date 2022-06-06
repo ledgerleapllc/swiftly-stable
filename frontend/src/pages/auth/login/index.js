@@ -50,7 +50,6 @@ const Login = () => {
   });
 
   const step = watch('step');
-
   const dispatch = useDispatch();
 
   const onSubmitEmail = (data) => {
@@ -85,7 +84,6 @@ const Login = () => {
         (res) => {
           setLoading(false);
           const { detail } = res;
-
           if (detail.user?.verified === '0') {
             history.push({
               pathname: `/auth/verify-email/${detail.guid}`,

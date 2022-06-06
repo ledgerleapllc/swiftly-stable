@@ -26,14 +26,14 @@ class UserResendCode extends Endpoints {
 		$fetched_confirmation_code = $selection[0]['confirmation_code'] ?? null;
 		$email = $selection[0]['email'] ?? null;
 
-		if($already_verified === 1) {
+		if ($already_verified === 1) {
 			_exit(
 				'success',
 				'Already confirmed registration'
 			);
 		}
 
-		if($fetched_confirmation_code) {
+		if ($fetched_confirmation_code) {
 			$recipient = $email;
 			$subject = 'Welcome to Swiftly Stable';
 			$body = 'Welcome to Swiftly Stable. Your registration code is below:<br><br>';

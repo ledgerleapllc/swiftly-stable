@@ -9,14 +9,13 @@ include_once('../../core.php');
  *
  */
 class UserLogin extends Endpoints {
-	function __construct($email = '', $password = '') {
+	function __construct() {
 		global $db, $helper;
-
 		require_method('POST');
-
+		
 		$email = parent::$params['email'] ?? null;
 		$password = parent::$params['password'] ?? null;
-
+		
 		if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 			_exit(
 				'error',
@@ -25,8 +24,8 @@ class UserLogin extends Endpoints {
 				'Invalid email address'
 			);
 		}
-
-		if(!$password) {
+		
+		if (!$password) {
 			_exit(
 				'error',
 				'Please provide a password',
@@ -61,11 +60,11 @@ class UserLogin extends Endpoints {
 		}
 
 		/* check MFA */
-		if($twofa == 1) {
+		if ($twofa == 1) {
 			// totp mfa type, both auths required to be at most 5 minutes apart
 			$totp_expires_at = $helper->get_datetime(300); // 5 minutes
 
-			if($totp == 1) {
+			if ($totp == 1) {
 				$query = "
 					INSERT INTO totp_logins (
 						guid,
@@ -97,7 +96,7 @@ class UserLogin extends Endpoints {
 				'Please find your MFA code below to login to CasperFYRE. This code expires in 5 minutes.',
 				$code
 			);
-
+			
 			$query = "
 				DELETE FROM twofa
 				WHERE guid = '$guid'
@@ -136,15 +135,15 @@ class UserLogin extends Endpoints {
 
 		$query2 = "
 			INSERT INTO sessions (
-			guid,
-			bearer,
-			created_at,
-			expires_at
+				guid,
+				bearer,
+				created_at,
+				expires_at
 			) VALUES (
-			'$guid',
-			'$bearer',
-			'$created_at',
-			'$expires_at'
+				'$guid',
+				'$bearer',
+				'$created_at',
+				'$expires_at'
 			)
 		";
 

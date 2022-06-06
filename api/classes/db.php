@@ -4,7 +4,7 @@
  */
 class DB {
 	public $connect = null;
-
+	
 	function __construct() {
 		$this->connect = new mysqli(
 			DB_HOST,
@@ -14,11 +14,11 @@ class DB {
 		);
 		if ($this->connect->connect_error) $this->connect = null;
 	}
-
+	
 	function __destruct() {
 		if ($this->connect) $this->connect->close();
 	}
-
+	
 	/**
 	 * Do DB selection
 	 *
@@ -27,20 +27,17 @@ class DB {
 	 */
 	public function do_select($query) {
 		$return = null;
-
-		if($this->connect) {
+		if ($this->connect) {
 			$result = $this->connect->query($query);
-
-			if($result != null && $result->num_rows > 0) {
+			if ($result != null && $result->num_rows > 0) {
 				while($row = $result->fetch_assoc()) {
 					$return[] = $row;
 				}
 			}
 		}
-
 		return $return;
 	}
-
+	
 	/**
 	 * Do DB query
 	 *
@@ -87,8 +84,8 @@ class DB {
 			$this->do_query($query);
 			elog('DB: Created schedule table');
 		}
-
-		if(!in_array('sessions', $all_tables)) {
+		
+		if (!in_array('sessions', $all_tables)) {
 			$query = "
 				CREATE TABLE `sessions` (
 					`id` int NOT NULL AUTO_INCREMENT,
@@ -114,7 +111,7 @@ class DB {
 			elog('DB: Created settings table');
 		}
 
-		if(!in_array('users', $all_tables)) {
+		if (!in_array('users', $all_tables)) {
 			$query = "
 				CREATE TABLE `users` (
 					`guid` varchar(36) NOT NULL,
@@ -173,11 +170,11 @@ class DB {
 			";
 			$this->do_query($query);
 			elog('Created admin');
-			elog('Email: '.$created_email);
-			elog('Password: '.$random_password);
+			elog('Email: ' . $created_email);
+			elog('Password: ' . $random_password);
 		}
 
-		if(!in_array('entities', $all_tables)) {
+		if (!in_array('entities', $all_tables)) {
 			$query = "
 				CREATE TABLE `users` (
 					`guid` varchar(36) NOT NULL,
@@ -197,7 +194,7 @@ class DB {
 			elog('DB: Created entities table');
 		}
 
-		if(!in_array('wallets', $all_tables)) {
+		if (!in_array('wallets', $all_tables)) {
 			$query = "
 				CREATE TABLE `wallets` (
 					`id` int NOT NULL AUTO_INCREMENT,
@@ -216,7 +213,7 @@ class DB {
 			elog('DB: Created wallets table');
 		}
 
-		if(!in_array('twofa', $all_tables)) {
+		if (!in_array('twofa', $all_tables)) {
 			$query = "
 				CREATE TABLE `twofa` (
 					`id` int NOT NULL AUTO_INCREMENT,
@@ -230,7 +227,7 @@ class DB {
 			elog('DB: Created twofa table');
 		}
 
-		if(!in_array('mfa_allowance', $all_tables)) {
+		if (!in_array('mfa_allowance', $all_tables)) {
 			$query = "
 				CREATE TABLE `mfa_allowance` (
 					`guid` varchar(36) NOT NULL,
@@ -241,7 +238,7 @@ class DB {
 			elog('DB: Created mfa_allowance table');
 		}
 
-		if(!in_array('throttle', $all_tables)) {
+		if (!in_array('throttle', $all_tables)) {
 			$query = "
 				CREATE TABLE `throttle` (
 					`ip` varchar(64) DEFAULT NULL,
@@ -254,7 +251,7 @@ class DB {
 			elog('DB: Created throttle table');
 		}
 
-		if(!in_array('password_resets', $all_tables)) {
+		if (!in_array('password_resets', $all_tables)) {
 			$query = "
 				CREATE TABLE `password_resets` (
 					`guid` varchar(36) NOT NULL,
@@ -264,8 +261,8 @@ class DB {
 			$this->do_query($query);
 			elog('DB: Created password_resets table');
 		}
-
-		if(!in_array('email_changes', $all_tables)) {
+		
+		if (!in_array('email_changes', $all_tables)) {
 			$query = "
 				CREATE TABLE `email_changes` (
 					`guid` varchar(36) NOT NULL,
@@ -292,7 +289,7 @@ class DB {
 			$this->do_query($query);
 			elog('DB: Created totp table');
 		}
-
+		
 		if (!in_array('totp_logins', $all_tables)) {
 			$query = "
 				CREATE TABLE `totp_logins` (

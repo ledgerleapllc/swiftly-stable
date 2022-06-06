@@ -20,7 +20,7 @@ class DB extends SQLite3 {
 	public function do_select($query) {
 		$return = null;
 		$ret = $this->query($query);
-
+		
 		while($row = $ret->fetchArray(SQLITE3_ASSOC)) {
 			$return[] = $row;
 		}
@@ -54,13 +54,13 @@ class DB extends SQLite3 {
 		$tables = $this->do_select($query);
 		$all_tables = array();
 
-		if($tables) {
+		if ($tables) {
 			foreach ($tables as $table) {
 				$all_tables[] = $table['Tables_in_'.DB_NAME];
 			}
 		}
 
-		if(!in_array('schedule', $all_tables)) {
+		if (!in_array('schedule', $all_tables)) {
 			$query = "
 				CREATE TABLE `schedule` (
 					`template_id` varchar(100) DEFAULT NULL,
@@ -77,7 +77,7 @@ class DB extends SQLite3 {
 			elog('DB: Created schedule table');
 		}
 
-		if(!in_array('sessions', $all_tables)) {
+		if (!in_array('sessions', $all_tables)) {
 			$query = "
 				CREATE TABLE `sessions` (
 					`guid` varchar(36) NOT NULL,
@@ -90,7 +90,7 @@ class DB extends SQLite3 {
 			elog('DB: Created sessions table');
 		}
 
-		if(!in_array('settings', $all_tables)) {
+		if (!in_array('settings', $all_tables)) {
 			$query = "
 				CREATE TABLE `settings` (
 					`name` varchar(64) DEFAULT NULL,
@@ -101,7 +101,7 @@ class DB extends SQLite3 {
 			elog('DB: Created settings table');
 		}
 
-		if(!in_array('users', $all_tables)) {
+		if (!in_array('users', $all_tables)) {
 			$query = "
 				CREATE TABLE `users` (
 					`guid` varchar(36) NOT NULL,
@@ -150,7 +150,7 @@ class DB extends SQLite3 {
 			elog('Created admin');
 		}
 
-		if(!in_array('entities', $all_tables)) {
+		if (!in_array('entities', $all_tables)) {
 			$query = "
 				CREATE TABLE `users` (
 					`guid` varchar(36) NOT NULL,
@@ -166,7 +166,7 @@ class DB extends SQLite3 {
 			elog('DB: Created entities table');
 		}
 
-		if(!in_array('wallets', $all_tables)) {
+		if (!in_array('wallets', $all_tables)) {
 			$query = "
 				CREATE TABLE `wallets` (
 					`guid` varchar(36) NOT NULL,
@@ -183,7 +183,7 @@ class DB extends SQLite3 {
 			elog('DB: Created wallets table');
 		}
 
-		if(!in_array('twofa', $all_tables)) {
+		if (!in_array('twofa', $all_tables)) {
 			$query = "
 				CREATE TABLE `twofa` (
 					`guid` varchar(36) NOT NULL,
@@ -195,7 +195,7 @@ class DB extends SQLite3 {
 			elog('DB: Created twofa table');
 		}
 
-		if(!in_array('mfa_allowance', $all_tables)) {
+		if (!in_array('mfa_allowance', $all_tables)) {
 			$query = "
 				CREATE TABLE `mfa_allowance` (
 					`guid` varchar(36) NOT NULL,
@@ -206,7 +206,7 @@ class DB extends SQLite3 {
 			elog('DB: Created mfa_allowance table');
 		}
 
-		if(!in_array('throttle', $all_tables)) {
+		if (!in_array('throttle', $all_tables)) {
 			$query = "
 				CREATE TABLE `throttle` (
 					`ip` varchar(64) DEFAULT NULL,
@@ -219,7 +219,7 @@ class DB extends SQLite3 {
 			elog('DB: Created throttle table');
 		}
 
-		if(!in_array('password_resets', $all_tables)) {
+		if (!in_array('password_resets', $all_tables)) {
 			$query = "
 				CREATE TABLE `password_resets` (
 					`guid` varchar(36) NOT NULL,
@@ -230,7 +230,7 @@ class DB extends SQLite3 {
 			elog('DB: Created password_resets table');
 		}
 
-		if(!in_array('email_changes', $all_tables)) {
+		if (!in_array('email_changes', $all_tables)) {
 			$query = "
 				CREATE TABLE `email_changes` (
 					`guid` varchar(36) NOT NULL,
@@ -245,7 +245,7 @@ class DB extends SQLite3 {
 			elog('DB: Created email_changes table');
 		}
 
-		if(!in_array('totp', $all_tables)) {
+		if (!in_array('totp', $all_tables)) {
 			$query = "
 				CREATE TABLE `totp` (
 					`guid` varchar(36) NOT NULL,
@@ -258,7 +258,7 @@ class DB extends SQLite3 {
 			elog('DB: Created totp table');
 		}
 
-		if(!in_array('totp_logins', $all_tables)) {
+		if (!in_array('totp_logins', $all_tables)) {
 			$query = "
 				CREATE TABLE `totp_logins` (
 					`guid` varchar(36) NOT NULL,

@@ -31,14 +31,14 @@ class UserConfirmRegistration extends Endpoints {
 		$already_verified = $selection[0]['verified'] ?? null;
 		$fetched_confirmation_code = $selection[0]['confirmation_code'] ?? null;
 
-		if($already_verified === 1) {
+		if ($already_verified === 1) {
 			_exit(
 				'success',
 				'Already confirmed registration'
 			);
 		}
 
-		if(
+		if (
 			$confirmation_code &&
 			$confirmation_code == $fetched_confirmation_code
 		) {
@@ -59,9 +59,9 @@ class UserConfirmRegistration extends Endpoints {
 			$first_name = $selection[0]['first_name'] ?? '';
 			$user_email = $selection[0]['email'] ?? '';
 			$subject = 'Swiftly Stable Registration Confirmed';
-			$body = 'Hello'.($first_name ? ', '.$first_name : '').'! You have successfully registered with Swiftly Stable. From here, an admin will need to approved your account before you can start using its features. Please allow up to 24 hours for an update emailed to you. If you have any questions or concerns, you can contact '.getenv('ADMIN_EMAIL');
-
-			if($user_email) {
+			$body = 'Hello' . ($first_name ? ', '.$first_name : '').'! You have successfully registered with Swiftly Stable. From here, an admin will need to approved your account before you can start using its features. Please allow up to 24 hours for an update emailed to you. If you have any questions or concerns, you can contact '.getenv('ADMIN_EMAIL');
+			
+			if ($user_email) {
 				$helper->schedule_email(
 					'welcome',
 					$user_email,

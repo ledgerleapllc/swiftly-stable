@@ -59,7 +59,7 @@ class Throttle {
 
 	function __construct(string $real_ip = '127.0.0.1') {
 		// forget throttling during dev
-		if(
+		if (
 			$real_ip == '127.0.0.1' ||
 			$real_ip == 'localhost' ||
 			$real_ip == '::1' ||
@@ -76,7 +76,7 @@ class Throttle {
 		$this->uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '/';
 
 		// no need to go any further for unit tests
-		if($real_ip == 'unittest') {
+		if ($real_ip == 'unittest') {
 			return true;
 		}
 
@@ -90,7 +90,7 @@ class Throttle {
 
 		$selection = $db->do_select($query);
 
-		if(!$selection) {
+		if (!$selection) {
 			$query = "
 				INSERT INTO throttle (
 					ip,
@@ -114,7 +114,7 @@ class Throttle {
 		$minute_hits_remaining = floor(($minute - $new_minute_throttle) * $minute_limit / $minute);
 		$minute_hits_remaining = $minute_hits_remaining >= 0 ? $minute_hits_remaining : 0;
 
-		if($new_minute_throttle > $minute) {
+		if ($new_minute_throttle > $minute) {
 			_exit(
 				"error",
 				"Too many requests to this resource",
@@ -122,7 +122,7 @@ class Throttle {
 				"Too many requests to this resource"
 			);
 		}
-
+		
 		$query = "
 			UPDATE throttle
 			SET hit = $new_minute_throttle, last_request = $this->now

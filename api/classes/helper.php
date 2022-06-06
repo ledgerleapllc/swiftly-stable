@@ -5,14 +5,13 @@
  *
  */
 
-
 class Helper {
 	private const cipher = "AES-256-CBC";
-
+	
 	function __construct() {
 		//
 	}
-
+	
 	function __destruct() {
 		//
 	}
@@ -60,18 +59,13 @@ class Helper {
 	 *
 	 */
 	public static function generate_hash($length = 10) {
-		$seed = str_split(
-			'ABCDEFGHJKLMNPQRSTUVWXYZ'.
-			'2345678923456789'
-		);
+		$seed = str_split('ABCDEFGHJKLMNPQRSTUVWXYZ' . '2345678923456789');
 		// dont use 0, 1, o, O, l, I
 		shuffle($seed);
 		$hash = '';
-
 		foreach(array_rand($seed, $length) as $k) {
 			$hash .= $seed[$k];
 		}
-
 		return $hash;
 	}
 
@@ -133,7 +127,7 @@ class Helper {
 		";
 		$similarity_check = $db->do_select($query) ?? array();
 
-		if(count($similarity_check) > 2) {
+		if (count($similarity_check) > 2) {
 			for($i = 1; $i < count($similarity_check); $i++) {
 				$sid = $similarity_check[$i]['id'] ?? 0;
 				$query = "
@@ -193,7 +187,7 @@ class Helper {
 		$code = self::generate_hash(6);
 		$created_at = self::get_datetime();
 
-		if($selection) {
+		if ($selection) {
 			$query = "
 				DELETE FROM twofa
 				WHERE guid = '$guid'
@@ -240,7 +234,7 @@ class Helper {
 	public static function verify_mfa($guid, $mfa_code) {
 		global $db;
 
-		if(strlen($mfa_code) > 8) {
+		if (strlen($mfa_code) > 8) {
 			return 'incorrect';
 		}
 
@@ -254,10 +248,10 @@ class Helper {
 		$mfa_type = (int)($mfa_type[0]['totp'] ?? 0);
 
 		// totp type mfa
-		if($mfa_type == 1) {
+		if ($mfa_type == 1) {
 			$verified = Totp::check_code($guid, $mfa_code);
 
-			if($verified) {
+			if ($verified) {
 				self::create_mfa_allowance($guid);
 				return 'success';
 			}
@@ -278,15 +272,15 @@ class Helper {
 		$created_at = $selection[0]['created_at'] ?? 0;
 		$expire_time = self::get_datetime(-300); // 5 minutes ago
 
-		if($selection) {
-			if($mfa_code == $fetched_code) {
+		if ($selection) {
+			if ($mfa_code == $fetched_code) {
 				$query = "
 					DELETE FROM twofa
 					WHERE guid = '$guid'
 				";
 				$db->do_query($query);
 
-				if($expire_time < $created_at) {
+				if ($expire_time < $created_at) {
 					self::create_mfa_allowance($guid);
 					return 'success';
 				} else {
@@ -353,14 +347,14 @@ class Helper {
 		";
 		$selection = $db->do_select($query);
 
-		if(!$selection) {
+		if (!$selection) {
 			return false;
 		}
 
 		$expires_at = $selection[0]['expires_at'] ?? '';
 		$now_time = self::get_datetime();
 
-		if($now_time > $expires_at) {
+		if ($now_time > $expires_at) {
 			$return = false;
 		} else {
 			$return = true;
@@ -411,7 +405,7 @@ class Helper {
 	public static function get_wallet_balance($validator_id) {
 		global $casper_client;
 
-		if(!self::correct_validator_id_format($validator_id)) {
+		if (!self::correct_validator_id_format($validator_id)) {
 			return 0;
 		}
 
@@ -455,7 +449,7 @@ class Helper {
 		$secret_key_enc = $selection[0]['secret_key_enc'] ?? '';
 		$secret_key = '';
 
-		if($secret_key_enc) {
+		if ($secret_key_enc) {
 			$secret_key = self::aes_decrypt($secret_key_enc);
 		}
 
@@ -523,7 +517,7 @@ class Helper {
 		$split = explode('::', $decoded);
 		$iv = $split[1] ?? '';
 
-		if(strlen($iv) % 2 == 0 && ctype_xdigit($iv)) {
+		if (strlen($iv) % 2 == 0 && ctype_xdigit($iv)) {
 			$iv = hex2bin($iv);
 		} else {
 			return self::b_decode($data);
@@ -555,8 +549,8 @@ class Helper {
 	 *
 	 */
 	public static function get_dir_contents(
-		$__dir, 
-		$dir, 
+		$__dir,
+		$dir,
 		&$result = array()
 	) {
 		$files = scandir($dir);
@@ -565,9 +559,9 @@ class Helper {
 			$path = realpath($dir.DIRECTORY_SEPARATOR.$val);
 			$path = str_replace($__dir.'/' , '', $path);
 
-			if(!is_dir($path)) {
+			if (!is_dir($path)) {
 				$result[] = $path;
-			} elseif(
+			} elseif (
 				$val != '.' &&
 				$val != '..'
 			) {
@@ -575,7 +569,6 @@ class Helper {
 				$result[] = $path;
 			}
 		}
-
 		return $result;
 	}
 
@@ -587,20 +580,16 @@ class Helper {
 	 *
 	 */
 	public static function get_real_ip() {
-		if(!empty($_SERVER['HTTP_CLIENT_IP'])) {
+		if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
 			$ip = $_SERVER['HTTP_CLIENT_IP'];
-		} elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+		} else if(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
 			$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
 		} else {
 			$ip = $_SERVER['REMOTE_ADDR'] ?? '';
 		}
 
-		if($ip == '::1')
-			return '127.0.0.1';
-
-		if(!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4))
-			return '127.0.0.1';
-
+		if ($ip == '::1') return '127.0.0.1';
+		if (!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) return '127.0.0.1';
 		return $ip;
 	}
 
@@ -613,22 +602,22 @@ class Helper {
 	 *
 	 */
 	public static function correct_validator_id_format($vid) {
-		if(gettype($vid) != 'string') {
+		if (gettype($vid) != 'string') {
 			return false;
 		}
 
-		if(!preg_match('/^[0-9a-fA-F]+$/', $vid)) {
+		if (!preg_match('/^[0-9a-fA-F]+$/', $vid)) {
 			return false;
 		}
 
 		$firstbyte = substr($vid, 0, 2);
 
-		if($firstbyte === '01') {
-			if(strlen($vid) === 66) {
+		if ($firstbyte === '01') {
+			if (strlen($vid) === 66) {
 				return true;
 			}
-		} elseif($firstbyte === '02') {
-			if(strlen($vid) === 68) {
+		} else if($firstbyte === '02') {
+			if (strlen($vid) === 68) {
 				return true;
 			}
 		}
@@ -646,10 +635,10 @@ class Helper {
 	 *
 	 */
 	public static function in_CIDR_range($ip, $iprange) {
-		if(!$iprange || $iprange == '') return true;
-
-		if(strpos($iprange, '/') === false) {
-			if(inet_pton($ip) == inet_pton($iprange)) return true;
+		if (!$iprange || $iprange == '') return true;
+		
+		if (strpos($iprange, '/') === false) {
+			if (inet_pton($ip) == inet_pton($iprange)) return true;
 		} else {
 			list($subnet, $bits) = explode('/', $iprange);
 			// Convert subnet to binary string of $bits length
