@@ -196,6 +196,7 @@ class DB {
 					`entity_zip` varchar(16) DEFAULT NULL,
 					`entity_registration_number` varchar(255) DEFAULT NULL,
 					`entity_registration_date` timestamp NULL DEFAULT NULL,
+					`entity_registration_country` varchar(100) DEFAULT NULL,
 					`entity_phone` varchar(20) DEFAULT NULL,
 					`entity_contact_title` varchar(32) DEFAULT NULL,
 					`created_at` timestamp NULL DEFAULT NULL,
