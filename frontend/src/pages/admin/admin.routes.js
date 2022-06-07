@@ -1,11 +1,16 @@
 import { lazy } from 'react';
 import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 
-const ApplicationsRoutes = lazy(() => import('./applications'));
-const ApiKeysRoutes = lazy(() => import('./api-keys'));
-const ApiKeysDetailRoutes = lazy(() => import('./api-keys/detail'));
-const ApiLogsRoutes = lazy(() => import('./api-logs'));
-const WalletsRoutes = lazy(() => import('./wallets'));
+const DashboardRoutes = lazy(() => import('./dashboard'));
+const OnboardingsRoutes = lazy(() => import('./onboarding'));
+const UsersRoutes = lazy(() => import('./users'));
+const UsersDetailRoutes = lazy(() => import('./users/detail'));
+const ManageKYCsRoutes = lazy(() => import('./manage-kyc'));
+const UsersActivityRoutes = lazy(() => import('./user-activity'));
+const WithdrawsRoutes = lazy(() => import('./withdraws'));
+const YieldPoolsRoutes = lazy(() => import('./yield-pools'));
+const YieldPoolsDetailRoutes = lazy(() => import('./yield-pools/detail'));
+
 const SettingsRoutes = lazy(() => import('./settings'));
 const HomeRoutes = lazy(() => import('./home'));
 
@@ -14,12 +19,16 @@ const AdminRoutes = () => {
 
   return (
     <Switch>
-      <Route path={`${path}/home`} component={HomeRoutes} />
-      <Route path={`${path}/applications`} component={ApplicationsRoutes} />
-      <Route path={`${path}/api-keys`} component={ApiKeysRoutes} exact />
-      <Route path={`${path}/api-keys/:id`} component={ApiKeysDetailRoutes} />
-      <Route path={`${path}/api-logs`} component={ApiLogsRoutes} />
-      <Route path={`${path}/wallets`} component={WalletsRoutes} />
+      <Route path={`${path}/dashboard`} component={DashboardRoutes} />
+      <Route path={`${path}/onboarding`} component={OnboardingsRoutes} />
+      <Route path={`${path}/users`} component={UsersRoutes} exact />
+      <Route path={`${path}/users/:id`} component={UsersDetailRoutes} />
+      <Route path={`${path}/manage-kyc`} component={ManageKYCsRoutes} />
+      <Route path={`${path}/user-activity`} component={UsersActivityRoutes} />
+      <Route path={`${path}/withdraws`} component={WithdrawsRoutes} />
+      <Route path={`${path}/yield-pools`} component={YieldPoolsRoutes} exact />
+      <Route path={`${path}/yield-pools/:id`} component={YieldPoolsDetailRoutes} />
+
       <Route path={`${path}/settings`} component={SettingsRoutes} />
       <Redirect from='*' to={`${path}/applications`} />
     </Switch>

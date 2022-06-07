@@ -1,10 +1,13 @@
-import { ReactComponent as CheckIcon } from 'assets/icons/check.svg';
+import { ReactComponent as CheckBox } from 'assets/icons/check-box.svg';
 import { ReactComponent as TermsOfServiceIcon } from 'assets/icons/termsofservice.svg';
-import React from 'react';
+import { ReactComponent as UnCheckBox } from 'assets/icons/uncheck-box.svg';
+import React, { useState } from 'react';
 import { Button } from 'shared/components/partials';
 import { Dialog } from 'shared/components/partials/Dialog/Provider';
 
 const TermsOfService = ({ close }) => {
+  const [isChecked, setIsChecked] = useState(false);
+
   const handleCancel = () => {
     close();
   };
@@ -64,16 +67,18 @@ const TermsOfService = ({ close }) => {
             feugiat nibh sed pulvinar. Nunc faucibus a pellentesque sit amet porttitor.
           </p>
         </div>
-        <div className='flex gap-2 pt-7.5 pb-6.25 text-sm'>
-          <CheckIcon />
+        <button className='flex gap-2 pt-7.5 pb-6.25 text-sm items-center' onClick={() => setIsChecked(!isChecked)}>
+          {isChecked ? <CheckBox /> : <UnCheckBox />}
           <p>I have read and agree to the terms of use.</p>
-        </div>
+        </button>
       </Dialog.Body>
       <Dialog.Footer className='flex mt-4 justify-between gap-4'>
-        <Button variant='outline' className='w-full'>
+        <Button variant='outline' className='w-full' onClick={handleCancel}>
           Decline
         </Button>
-        <Button className='w-full'>I Agree</Button>
+        <Button className='w-full' onClick={handleCancel}>
+          I Agree
+        </Button>
       </Dialog.Footer>
     </Dialog>
   );

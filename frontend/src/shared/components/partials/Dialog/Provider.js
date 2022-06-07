@@ -1,4 +1,5 @@
 // import { ReactComponent as IconX } from 'assets/icons/ic-x.svg';
+import { ReactComponent as Logo } from 'assets/icons/logo.svg';
 import classNames from 'classnames';
 import React, { cloneElement, useState } from 'react';
 import styles from './style.module.scss';
@@ -71,9 +72,7 @@ const DialogProvider = (props) => {
   );
 };
 
-const Dialog = (props) => {
-  const { showCloseBtn = true, className, closeRight = false, close } = props;
-
+const Dialog = ({ showCloseBtn = true, className, closeRight = false, close, children }) => {
   return (
     <div className={classNames(styles.dialogContainer, className)} onClick={(e) => e.stopPropagation()}>
       {showCloseBtn && (
@@ -87,23 +86,62 @@ const Dialog = (props) => {
           x
         </button>
       )}
-      {props.children}
+      <Logo className='w-1/4 mx-auto' />
+      {children}
     </div>
   );
 };
 
-Dialog.Header = ({ className, children, title, subTitle }) => (
-  <div className={classNames(styles.dialogHeader, className)}>
-    <div>
-      {title && <p className='text-base font-semibold text-black1'>{title}</p>}
-      {subTitle && <p className='text-xs font-normal mt-1'>{subTitle}</p>}
+const renderSteps = (step, currentStep) => {
+  return (
+    <>
+      <div className='flex gap-2 mr-1'>
+        {[...Array(step).keys()].map((i) => (
+          <div
+            className={classNames(
+              `transition ease-in-out border-solid w-2 h-2 rounded cursor-pointer ${
+                currentStep === i + 1 ? 'bg-primary' : 'bg-gray2'
+              }`
+            )}
+          ></div>
+        ))}
+      </div>
+    </>
+  );
+};
+
+Dialog.Header = ({ className, children, title, subTitle, step, currentStep }) => {
+  return (
+    <div
+      className={classNames(
+        styles.dialogHeader,
+        {
+          'flex justify-between': step,
+        },
+        className
+      )}
+    >
+      <div>
+        {title && <p className='text-base font-semibold text-black1'>{title}</p>}
+        {subTitle && <p className='text-xs font-normal mt-1'>{subTitle}</p>}
+      </div>
+      {step && renderSteps(step, currentStep)}
+      {children}
     </div>
-    {children}
-  </div>
-);
+  );
+};
 
 Dialog.Body = (props) => <div className={classNames(styles.dialogBody, props.className)}>{props.children}</div>;
 
-Dialog.Footer = (props) => <div className={classNames(styles.dialogFooter, props.className)}>{props.children}</div>;
+Dialog.Footer = ({ step, currentStep, children, className }) => (
+  <div className={classNames(styles.dialogFooter, className)}>
+    {children}
+    {step && (
+      <div className='flex items-center justify-center pt-4'>
+        <div className='flex gap-1'>{renderSteps(step, currentStep)}</div>
+      </div>
+    )}
+  </div>
+);
 
 export { DialogProvider, Dialog, useDialog };

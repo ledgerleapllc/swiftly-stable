@@ -23,7 +23,7 @@ const ToggleSwitch = forwardRef(({ checked, disableChange = false, ...other }, r
           onClick={handleChecked}
         ></div>
       </label>
-      <p className='mt-3 text-primary font-semibold'>{isChecked ? 'On' : 'Off'}</p>
+      {/* <p className='mt-3 text-primary font-semibold'>{isChecked ? 'On' : 'Off'}</p> */}
     </div>
   );
 });

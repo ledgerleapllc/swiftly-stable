@@ -1,9 +1,11 @@
 import { ReactComponent as Buffer } from 'assets/icons/buffer.svg';
-import { ReactComponent as Clipboard } from 'assets/icons/clipboard.svg';
+import { ReactComponent as ChevronLeft } from 'assets/icons/circle-chevron-left.svg';
 import { ReactComponent as Dashboard } from 'assets/icons/dashboard.svg';
-import { ReactComponent as Key } from 'assets/icons/key.svg';
+import { ReactComponent as Hexagon } from 'assets/icons/hexagon.svg';
 import { ReactComponent as Settings } from 'assets/icons/settings.svg';
-import { ReactComponent as Wallet } from 'assets/icons/wallet.svg';
+import { ReactComponent as Shield } from 'assets/icons/shield.svg';
+import { ReactComponent as UserGroup } from 'assets/icons/user-group.svg';
+import { ReactComponent as UserPlus } from 'assets/icons/user-plus.svg';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import MenuItem from './components/MenuItem';
@@ -12,24 +14,39 @@ import './style.module.scss';
 const menuData = {
   admin: [
     {
-      component: <Clipboard />,
-      text: 'Applications',
-      href: '/app/applications',
+      component: <Dashboard />,
+      text: 'Dashboard',
+      href: '/app/dashboard',
     },
     {
-      component: <Key />,
-      text: 'API Keys',
-      href: '/app/api-keys',
+      component: <UserPlus />,
+      text: 'Onboarding',
+      href: '/app/onboarding',
+    },
+    {
+      component: <UserGroup />,
+      text: 'Users',
+      href: '/app/users',
+    },
+    {
+      component: <Shield />,
+      text: 'Manage KYC',
+      href: '/app/manage-kyc',
     },
     {
       component: <Buffer />,
-      text: 'API Logs',
-      href: '/app/api-logs',
+      text: 'User Activity',
+      href: '/app/user-activity',
     },
     {
-      component: <Wallet />,
-      text: 'Wallets',
-      href: '/app/wallets',
+      component: <ChevronLeft />,
+      text: 'Withdraws',
+      href: '/app/withdraws',
+    },
+    {
+      component: <Hexagon />,
+      text: 'Yield Pools',
+      href: '/app/yield-pools',
     },
     {
       component: <Settings />,
@@ -44,14 +61,19 @@ const menuData = {
       href: '/app/dashboard',
     },
     {
-      component: <Buffer />,
+      component: <Shield />,
       text: 'KYC',
       href: '/app/kyc',
     },
     {
-      component: <Key />,
-      text: 'Keys & Wallets',
-      href: '/app/keys-wallets',
+      component: <Buffer />,
+      text: 'Activity',
+      href: '/app/activity',
+    },
+    {
+      component: <Settings />,
+      text: 'Yield Pools',
+      href: '/app/yield-pools',
     },
     {
       component: <Settings />,
@@ -68,7 +90,7 @@ const Sidebar = () => {
     <>
       <div className='mt-2.5 sidebar w-20 sm:w-60 transition-all duration-200 ease-in-out'>
         <ul className='pt-3 menu'>
-          {menuData['user']?.map((item, index) => (
+          {menuData['admin']?.map((item, index) => (
             <MenuItem key={index} item={item} />
           ))}
         </ul>

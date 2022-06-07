@@ -1,0 +1,7 @@
+.blockItem {
+  @apply min-w-[473px] py-16 border-r text-center flex flex-col gap-y-2 justify-center items-center whitespace-nowrap;
+
+  &:last-child {
+    @apply border-none;
+  }
+}

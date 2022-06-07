@@ -46,13 +46,15 @@ const Toolbar = (props) => {
         </select>
         <p className='font-semibold text-[10px]'>entries</p>
       </div>
-      <div>
-        <Input
-          className='bg-white w-40 py-0 px-1 text-[10px]'
-          placeholder='Search'
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </div>
+      {!props.hideSearch && (
+        <div>
+          <Input
+            className='bg-white w-40 py-0 px-1 text-[10px]'
+            placeholder='Search'
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+      )}
     </div>
   );
 };

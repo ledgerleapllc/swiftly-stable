@@ -26,17 +26,19 @@ export const Header = () => {
           <Link to='/' className='flex items-center'>
             <img className={style.logo} src='/images/logo.png' alt='logo' />
           </Link>
-          {user && <div className='w-auto'>
-            <Menu>
-              <MenuButton className='flex items-center gap-x-2'>
-                <UserProfile width={20} height={20} />
-                <p>{user?.email}</p>
-              </MenuButton>
-              <MenuList className={style.userDropList}>
-                <MenuItem onClick={doLogout}>Log Out</MenuItem>
-              </MenuList>
-            </Menu>
-          </div>}
+          {user && (
+            <div className='w-auto'>
+              <Menu>
+                <MenuButton className='flex items-center gap-x-2'>
+                  <UserProfile width={20} height={20} />
+                  <p>{user?.email}</p>
+                </MenuButton>
+                <MenuList className={style.userDropList}>
+                  <MenuItem onClick={doLogout}>Log Out</MenuItem>
+                </MenuList>
+              </Menu>
+            </div>
+          )}
         </div>
       </nav>
     </div>

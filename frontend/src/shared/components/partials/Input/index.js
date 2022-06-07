@@ -1,9 +1,10 @@
-import React, { createElement, useState } from 'react';
 import { ReactComponent as Hide } from 'assets/icons/eye-slash.svg';
 import { ReactComponent as Show } from 'assets/icons/eye.svg';
+import classNames from 'classnames';
+import React, { createElement, useState } from 'react';
 import style from './style.module.scss';
 
-export const Input = React.forwardRef(({ type, error, rows, ...rest }, ref) => {
+export const Input = React.forwardRef(({ type, error, rows, fullWidth, label, ...rest }, ref) => {
   const [isShow, setIsShow] = useState(false);
 
   const renderTogglePassword = type === 'password' && (
@@ -27,8 +28,13 @@ export const Input = React.forwardRef(({ type, error, rows, ...rest }, ref) => {
   };
 
   return (
-    <div className='form-control'>
+    <div
+      className={classNames('form-control', {
+        'w-full': fullWidth,
+      })}
+    >
       <div className='relative'>
+        {label && <label className={'text-[8px]'}>{label}</label>}
         {renderElement(rows ? 'textarea' : 'input', inputProps, rest)}
         {renderTogglePassword}
       </div>

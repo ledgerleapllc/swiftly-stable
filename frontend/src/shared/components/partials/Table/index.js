@@ -51,7 +51,7 @@ const Table = (props) => {
         styles,
       }}
     >
-      <div className={`${props.className || ''} table-container flex flex-col min-w-250 h-full flex-1 min-h-0 text-sm`}>
+      <div className={`table-container flex flex-col min-w-250 h-full flex-1 min-h-0 text-sm ${props.className}`}>
         {props.children[0]}
         {cloneElement(props.children[1], {
           onLoadMore: props.onLoadMore,
@@ -123,7 +123,7 @@ Table.Header.Cell = Table.HeaderCell;
 
 Table.Body = (props) => {
   const { targetId, isTarget } = useContext(TableContext);
- 
+
   return (
     <div
       {...(!isTarget ? { id: targetId } : {})}
@@ -236,7 +236,6 @@ const useTable = (props = {}) => {
     }
   }, [tableId]);
 
-
   useEffect(() => {
     if (props.externalParams) {
       if (props.defaultSort) {
@@ -253,13 +252,13 @@ const useTable = (props = {}) => {
 
   const fetchApi = () => {
     return props.api({ ...params, page }, handleFetchSuccess, handleFetchError);
-  }
+  };
 
   const refresh = () => {
     resetData(() => {
       props.api({ ...params, page: 1 }, handleFetchSuccess, handleFetchError);
     });
-  }
+  };
 
   const handleSort = async (key, direction) => {
     setParams(
@@ -286,11 +285,11 @@ const useTable = (props = {}) => {
     } else {
       innerDiv.style.height = 'auto';
     }
-  }
+  };
 
   const handleFetchError = (err) => {
     setHasMore(false);
-  }
+  };
 
   const appendData = (res, reverse = false) => {
     if (reverse) {
@@ -337,7 +336,7 @@ const useTable = (props = {}) => {
     setPage,
     params,
     setParams,
-    refresh
+    refresh,
   };
 };
 
