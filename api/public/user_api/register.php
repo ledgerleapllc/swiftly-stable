@@ -24,6 +24,7 @@ include_once('../../core.php');
  * @param string $entity_zip
  * @param string $entity_registration_number
  * @param string $entity_registration_date
+ * @param string $entity_registration_country
  * @param string $entity_phone
  * @param string $entity_contact_title
  *
@@ -53,6 +54,7 @@ class UserRegister extends Endpoints {
 		$entity_zip = '',
 		$entity_registration_number = '',
 		$entity_registration_date = '',
+		$entity_registration_country = '',
 		$entity_phone = '',
 		$entity_contact_title = ''
 	) {
@@ -82,6 +84,7 @@ class UserRegister extends Endpoints {
 		$entity_zip = parent::$params['entity_zip'] ?? '';
 		$entity_registration_number = parent::$params['entity_registration_number'] ?? '';
 		$entity_registration_date = parent::$params['entity_registration_date'] ?? '';
+		$entity_registration_country = parent::$params['entity_registration_country'] ?? '';
 		$entity_phone = parent::$params['entity_phone'] ?? '';
 		$entity_contact_title = parent::$params['entity_contact_title'] ?? '';
 
@@ -236,6 +239,15 @@ class UserRegister extends Endpoints {
 				'Entity registration number is too long. Limit 255 characters',
 				400,
 				'Entity registration number is too long. Limit 255 characters'
+			);
+		}
+
+		if (strlen($entity_registration_country) > 100) {
+			_exit(
+				'error',
+				'Entity registration country is too long. Limit 100 characters',
+				400,
+				'Entity registration country is too long. Limit 100 characters'
 			);
 		}
 
